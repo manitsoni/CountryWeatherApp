@@ -1,0 +1,51 @@
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Weather Information" (nzOnCancel)="closeModal()" (nzOnOk)="closeModal()">
+    <ng-container *nzModalContent>
+        <div class="weatherInfo" *ngFor="let data of weatherInfo">
+            <h1>{{data.capital}}</h1>
+            <h2><img class="icon" alt="example" src="{{data.icon}}" style="height:25px;width:30px" /></h2>
+            <h3>Temprature : {{data.temprature}}</h3>
+            <h3>Wind Speed : {{data.windSpeed}} km/h</h3>
+            <h3>Precipitation : {{data.precipitation}} %</h3>
+        </div>
+    </ng-container>
+</nz-modal>
+
+<div nz-row [nzGutter]="24" *ngIf="countryData.length > 0">
+    <div nz-col nzXs="24" nzSm="24" nzMd="8" mzLg="8" nzXl="8" *ngFor="let data of countryData">
+        <nz-card nzHoverable  style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionEllipsis]" [nzLoading]="isSpinning">
+            <nz-card-meta [nzTitle]="data.name">
+            </nz-card-meta>
+            <h3>{{data.capital}}</h3>
+            <p>Population :{{data.population}}</p>
+            <p nzEllipsis>Latitude, Longitude :{{data.lat}},{{data.long}}</p>
+        </nz-card>
+        <br>
+        <!-- <ng-template #avatarTemplate>
+            <nz-avatar [nzSrc]="data.icon"></nz-avatar>
+        </ng-template> -->
+        <ng-template #coverTemplate>
+            <img  *ngIf="!isSpinning" alt="example" src="{{data.flag}}" style="height: 200px;width: 300px;" />
+        </ng-template>
+        <ng-template #actionEllipsis >
+            <button *ngIf="!isSpinning" nz-button nzType="primary" (click)="showWeather(data.capital)">CAPITAL WEATHER</button>
+        </ng-template>
+    </div>
+</div>
+<div *ngIf="countryData.length == 0">
+    <h2>No countries found!!!</h2>
+</div>
+
+<style>
+    .weatherInfo {
+        text-align: center;
+    }
+
+    .spin {
+        text-align: center;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        padding: 30px 50px;
+        margin: 20px 0;
+    }
+</style>

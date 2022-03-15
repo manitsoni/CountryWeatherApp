@@ -1,0 +1,5 @@
+<div class="input-group">
+  <input nz-input type="text" placeholder="Enter Country" class="form-control" [(ngModel)]="countryName" (keyup)="CheckLength()" />
+</div>
+<br>
+<button nz-button nzType="primary" [disabled]="btnDisable" (click)="getCountryData()" style="margin-left: 50px;">Submit</button>
